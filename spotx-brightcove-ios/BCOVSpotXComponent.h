@@ -5,24 +5,18 @@
 #import <Foundation/Foundation.h>
 #import <BrightcovePlayerSDK/BrightcovePlayerSDK.h>
 
+extern NSString * const kBCOVSpotXLifecycleEventAdPresenting;
+extern NSString * const kBCOVSpotXLifecycleEventAdLoaded;
+extern NSString * const kBCOVSpotXLifecycleEventAdError;
+extern NSString * const kBCOVSpotXLifecycleEventAdCompleted;
+
 @interface BCOVPlayerSDKManager (BCOVSpotXAdditions)
 /**
- * Creates and returns a new playback controller with the specified IMASettings
- * object, IMAAdsRenderingSettings object, view strategy, and ad container. The
- * returned playback controller will be configured with an IMA session provider.
+ * Creates and returns a new playback controller with the specified SpotX
+ * channel id, and the active view controller.
  *
- * @param settings An IMASettings that will be used to configure any
- * IMAAdsLoader object used by the returned playback controller.
- * @param adsRenderingSettings An IMAAdsRenderingSettings that will be used to
- * configure any IMAAdsManager object used by the returned playback controller.
- * @param adsRequestPolicy BCOVIMAAdsRequestPolicy instance to generate
- * IMAAdsRequests for use by a given input playback session.
- * @param strategy A view strategy that determines the view for the returned
- * playback controller.
- * @param adContainer the view in which the ad will be displayed and the ad
- * information UI will be rendered.
- * @param companionSlots the list of IMACompanionAdSlot instances. Can be nil
- * or empty.
+ * @param SpotX channel id to use for the ad request.
+ * @param activeController the view controller upon which the ad view controller will be displayed modally.
  * @return A new playback controller with the specified parameters.
  */
 - (id<BCOVPlaybackController>)createSpotXPlaybackControllerForChannel:(NSString *)channelID activeController:(UIViewController *)viewController;

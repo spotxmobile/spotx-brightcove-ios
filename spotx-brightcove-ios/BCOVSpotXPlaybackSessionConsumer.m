@@ -3,6 +3,7 @@
 //
 
 #import "BCOVSpotXPlaybackSessionConsumer.h"
+#import "BCOVSpotXComponent.h"
 #import "AdManager/SpotX.h"
 
 @interface BCOVSpotXPlaybackSessionConsumer() <SpotXAdDelegate>
@@ -14,13 +15,14 @@
   UIViewController * _viewController;
   UIViewController * _adController;
   id<BCOVPlaybackSession> _suspendedSession;
+  id<BCOVPlaybackController> _playbackController;
 }
 
--(id)initWithChannelID:(NSString *)channelID activeController:(UIViewController *)viewController {
+-(id)initWithChannelID:(NSString *)channelID forPlaybackController:(id<BCOVPlaybackController>)playbackController activeController:(UIViewController *)viewController {
   self = [super init];
   if (self) {
     _viewController = viewController;
-
+    _playbackController = playbackController;
     _channelID = channelID;
   }
 
@@ -124,42 +126,55 @@
 
 }
 
+-(void)fireLifecycleEvent:(NSString *)eventName {
+  if ([_playbackController.delegate respondsToSelector:@selector(playbackController:playbackSession:didReceiveLifecycleEvent:)]) {
+    BCOVPlaybackSessionLifecycleEvent * event = [[BCOVPlaybackSessionLifecycleEvent alloc] initWithEventType:eventName properties:nil];
+
+    [_playbackController.delegate playbackController:_playbackController playbackSession:_suspendedSession didReceiveLifecycleEvent:event
+     ];
+  }
+}
+
 #pragma mark - SpotXAdDelegate
 
 - (void)presentViewController:(UIViewController *)viewControllerToPresent
 {
   _adController = viewControllerToPresent;
   [_viewController presentViewController:viewControllerToPresent animated:YES completion:nil];
+  [self fireLifecycleEvent: kBCOVSpotXLifecycleEventAdPresenting];
 }
 
 - (void)adFailedWithError:(NSError *)error
 {
+  [self fireLifecycleEvent: kBCOVSpotXLifecycleEventAdError];
   [self hideAdResumeVideo];
 }
 
 - (void)adError
 {
+  [self fireLifecycleEvent: kBCOVSpotXLifecycleEventAdError];
   [self hideAdResumeVideo];
 }
 
 - (void)adLoaded
 {
+  [self fireLifecycleEvent: kBCOVSpotXLifecycleEventAdLoaded];
 }
 
 - (void)adCompleted
 {
+  [self fireLifecycleEvent: kBCOVSpotXLifecycleEventAdCompleted];
   [self hideAdResumeVideo];
 }
 
 - (void)adClosed
 {
+  [self fireLifecycleEvent: kBCOVSpotXLifecycleEventAdCompleted];
   [self hideAdResumeVideo];
 }
 
 - (void)adClicked
 {
-//  dispatch_once(&_clickOnce, ^{
-//  });
 }
 
 @end
