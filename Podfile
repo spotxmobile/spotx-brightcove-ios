@@ -1,14 +1,14 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '8.0'
 # Uncomment this line if you're using Swift
-# use_frameworks!
+use_frameworks!
 
-target 'spotx-brightcove-ios' do
+target 'SpotxBrightcoveiOS' do
 
-	pod 'Brightcove-Player-SDK'
+	pod 'Brightcove-Player-SDK/dynamic'
 
 	# Latest Public Release
-	pod 'SpotX-SDK', :configuration => ['Release']
+	pod 'SpotX-SDK', '~> 2.1'
 
 	#pod 'SpotX-SDK-src', :path => '../spotx-sdk-ios'
 	#pod 'SpotX-SDK-src',

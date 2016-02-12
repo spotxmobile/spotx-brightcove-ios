@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.summary          = 'Brightcove plugin for SpotX'
   s.authors          = 'SpotX, Inc.'
   s.homepage         = 'http://www.spotxchange.com'
-  s.source           = { :git => 'https://github.com/spotxmobile/spotx-brightcove-ios.git' }
+  s.source           = { :git => 'https://github.com/spotxmobile/spotx-brightcove-ios.git', branch: 'dev' }
   s.license          =  'MIT'
   s.platform         = :ios, '7.0'
   s.requires_arc     = true
@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   ]
 
 
-  s.dependency 'Brightcove-Player-SDK', '~> 5.0'
+  s.dependency 'Brightcove-Player-SDK/dynamic', '~> 5.0'
   s.dependency 'SpotX-SDK', '~> 2.1'
-#  s.dependency 'SpotX-SDK-src'
+  #s.dependency 'SpotX-SDK-src'
 end

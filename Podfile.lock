@@ -1,12 +1,10 @@
 PODS:
-  - Brightcove-Player-SDK (5.0.2):
-    - Brightcove-Player-SDK/default (= 5.0.2)
-  - Brightcove-Player-SDK/default (5.0.2)
+  - Brightcove-Player-SDK/dynamic (5.0.2)
   - SpotX-SDK (2.1.1)
 
 DEPENDENCIES:
-  - Brightcove-Player-SDK
-  - SpotX-SDK
+  - Brightcove-Player-SDK/dynamic
+  - SpotX-SDK (~> 2.1)
 
 SPEC CHECKSUMS:
   Brightcove-Player-SDK: be52cedbecf090bdb235ee76b867994f42dbb230
